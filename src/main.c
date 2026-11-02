@@ -11,6 +11,10 @@
     *(int *)0 = 0;                                                             \
   }
 
+#ifndef DEFAULT_ALIGNMENT
+#define DEFAULT_ALIGNMENT (2 * sizeof(void *))
+#endif
+
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
@@ -56,10 +60,6 @@ void *arenaAllocAligned(Arena *arena, u64 size) {
   arena->offset += size;
   return newMem;
 }
-
-#ifndef DEFAULT_ALIGNMENT
-#define DEFAULT_ALIGNMENT (2 * sizeof(void *))
-#endif
 
 void *arenaAlloc(Arena *arena, u64 size) {
   return arenaAllocAligned(arena, DEFAULT_ALIGNMENT);
